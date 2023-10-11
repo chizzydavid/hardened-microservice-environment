@@ -1,0 +1,25 @@
+1. Incident commander name:
+    Chizindu David
+
+2. Executive Summary of what happened:
+   A set of crypto mining pods were launched into the cluster. Attackers seeking compute resource gained illicit access into the system and set up 3 monero containers: minergate, moneropool and xmrpooldotnet. 
+   Our Falco Monitoring Dashboard enabled us detect and visualize this suspicous activity promptly
+
+3. Summary of what was affected:
+    CPU resources were significantly depleted during this period. The graphs showed a huge spike in CPU usage.
+
+4. Summary of the impact:
+   This unfortunate incident exposes security vulnerabilities within the system.
+   Several applications experienced scaling issues due to depleted CPU resources
+
+5. Summary of the remediation steps:
+    On detecting the attack on the Falco Dashboard, the following command was run
+    kubectl --kubeconfig kube_config_cluster.yml delete pod <pod_name> --grace-period=0 --force 
+    The command forcefully kills the crypto pod and evicts it. 
+    After this, the falco dashboard is again monitored to confirm CPU utilization becoming stabilized
+
+6. Summary of lessons learned:
+    Higher priority should be placed on monitoring and alerting, particularly falco alerts for key metrics.
+    The attackers deployed the containers by executing kubectl commands, this indicates they have access to an administrative terminal and/or kubeconfig file. 
+    A review should be carried out across the team to see who has been compromised.
+    Using Admission Controllers, restrictions could also be placed on the images allowed or supported within the cluster.

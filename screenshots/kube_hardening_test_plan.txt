@@ -1,0 +1,13 @@
+How will you test the changes? 
+The changes would be tested on an environment that closely mimics production. Testing hardening changes directly on production opens up the risk of corrupting the enviroment or interrupting the business with outages.
+Carrying out tests in this manner shows diligence and discipline on the part of the team, also this could be incorporated into the organization's infrastructure deployment strategy.
+
+
+How will you ensure the changes don't negatively affect your cluster?
+To ensure there are no undesired outcomes to the cluster we make sure to rollout the changes incrementally. 
+This could mean implementing a canary deployment where a small portion of traffic is directed to the new environment. A load balancer can be provisioned and configured for this purpose.
+We also ensure that there are procedures to safely implement a rollback of the changes, appropriate use of version control should be mandatory here.
+
+Once the changes are applied, observability and monitoring tools like Prometheus and Grafana are closely monitored for metrics indicating either stability or regression. Appropriate action is carried out in either case.
+Logs and traces should also be collected during the testing process to allow for quick debugging or troubleshooting of issues.
+Documentation should be a top priority in these scenarios, the team should maintain an "As Built" document to record details of the deployment and specific system changes and implications.
